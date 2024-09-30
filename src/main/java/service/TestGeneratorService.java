@@ -18,16 +18,16 @@ public class TestGeneratorService {
 
         // -------------------------- Базовое итерирование --------------------------------
         long start = System.currentTimeMillis();
-        Map<Cage, Long> animalCountByCage__Basic_iterable = new HashMap<>();
+        Map<Cage, Long> animalCountByCageBasicIterable = new HashMap<>();
         for (Animal animal : animals) {
-            animalCountByCage__Basic_iterable.merge(animal.getCage(), 1L, Long::sum);
+            animalCountByCageBasicIterable.merge(animal.getCage(), 1L, Long::sum);
         }
         long end = System.currentTimeMillis();
         System.out.println("Размер массива: " + countOfCollections + " итерационный цикл: " + (end - start) + " ms");
 
         // -------------------------- StreamApi --------------------------------
         start = System.currentTimeMillis();
-        Map<Cage, Long> animalCountByCage__StreamApi = animals.stream()
+        Map<Cage, Long> animalCountByCageStreamApi = animals.stream()
                 .collect(Collectors.groupingBy(Animal::getCage, Collectors.counting()));
         end = System.currentTimeMillis();
         System.out.println("Размер массива: " + countOfCollections +
@@ -35,7 +35,7 @@ public class TestGeneratorService {
 
         // -------------------------- Свой коллектор --------------------------------
         start = System.currentTimeMillis();
-        Map<Cage, Long> animalCountByCage = animals.stream().collect(new AnimalCollector());
+        Map<Cage, Long> animalCountByCageCustomCollector = animals.stream().collect(new AnimalCollector());
         end = System.currentTimeMillis();
         System.out.println("Размер массива: " + countOfCollections +
                 " конвейер при помощи самописного коллектора: " + (end - start) + " ms");
