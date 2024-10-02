@@ -31,13 +31,13 @@ public class TestGeneratorService {
                 .collect(Collectors.groupingBy(Animal::getCage, Collectors.counting()));
         end = System.currentTimeMillis();
         System.out.println("Размер массива: " + countOfCollections +
-                " конвейер при помощи stream API: " + (end - start) + " ms");
+                " при помощи stream API: " + (end - start) + " ms");
 
         // -------------------------- Свой коллектор --------------------------------
         start = System.currentTimeMillis();
         Map<Cage, Long> animalCountByCageCustomCollector = animals.stream().collect(new AnimalCollector());
         end = System.currentTimeMillis();
         System.out.println("Размер массива: " + countOfCollections +
-                " конвейер при помощи самописного коллектора: " + (end - start) + " ms");
+                " при помощи самописного коллектора: " + (end - start) + " ms");
     }
 }
