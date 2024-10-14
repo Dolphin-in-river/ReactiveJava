@@ -15,14 +15,14 @@ public class AnimalGenerator {
     private final Random random = new Random();
 
     public Animal generateAnimal() {
-        return Animal.builder()
-                .name(generateName())
-                .birthday(generateBirthday())
-                .weight(generateWeight())
-                .animalType(generateAnimalType())
-                .cage(generateCage())
-                .persons(generatePersons())
-                .build();
+        Animal animal = new Animal();
+        animal.setName(generateName());
+        animal.setBirthday(generateBirthday());
+        animal.setWeight(generateWeight());
+        animal.setAnimalType(generateAnimalType());
+        animal.setCage(generateCage());
+        animal.setPersons(generatePersons());
+        return animal;
     }
 
     private String generateName() {

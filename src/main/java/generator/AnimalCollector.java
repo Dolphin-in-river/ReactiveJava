@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 
 public class AnimalCollector implements Collector<Animal, Map<Cage, Long>, Map<Cage, Long>> {
+    public Long DELAY = 1L;
     @Override
     public Supplier<Map<Cage, Long>> supplier() {
         return HashMap::new;
@@ -21,7 +22,7 @@ public class AnimalCollector implements Collector<Animal, Map<Cage, Long>, Map<C
 
     @Override
     public BiConsumer<Map<Cage, Long>, Animal> accumulator() {
-        return (map, animal) -> map.merge(animal.getCage(), 1L, Long::sum);
+        return (map, animal) -> map.merge(animal.getCageDelay(DELAY), 1L, Long::sum);
     }
 
     @Override
