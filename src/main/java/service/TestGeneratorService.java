@@ -10,6 +10,7 @@ import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -30,7 +31,9 @@ import java.util.stream.Stream;
 public class TestGeneratorService {
     private List<Animal> animals = new ArrayList<>();
     private DoGenerateStream doGenerateStream = new DoGenerateStream();
-    public static long COUNT_ANIMAL = 100000L;
+    @Param({"10000000"})
+//    @Param({"1000", "10000", "100000"})
+    public static int COUNT_ANIMAL;
     public static Map<Cage, Long> doGenerate(Long countOfCollections) {
         AnimalGenerator generator = new AnimalGenerator();
         List<Animal> animals = Stream.generate(generator::generateAnimal).limit(countOfCollections).toList();
@@ -96,6 +99,9 @@ public class TestGeneratorService {
         bh.consume(animals);
     }
 
-    // 4. Оптимизировать параллельный сбор статистики, реализовав собственный ForkJoinPool или Spliterator.
-    // Измерить производительность своего варианта.
+    @Benchmark
+    public void testForJoinPool(Blackhole bh) {
+        animals = doGenerateStream.doGenerateCommonComparatorWithForkJoinPool(animals);
+        bh.consume(animals);
+    }
 }

@@ -1,11 +1,13 @@
 package service;
 
+import generator.AnimalTaskPoolService;
 import lombok.RequiredArgsConstructor;
 import model.Animal;
 import model.Cage;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -38,8 +40,8 @@ public class DoGenerateStream {
     }
 
     public List<Animal> doGenerateCommonComparatorWithForkJoinPool(List<Animal> animals ) {
-        Map<Cage, Long> animalCountByCageStreamApi = animals.parallelStream()
-                .collect(Collectors.groupingBy(animal -> animal.getCage(), Collectors.counting()));
+        ForkJoinPool customPool = new ForkJoinPool(6);
+        Map<Cage, Long> animalCountByCage = customPool.invoke(new AnimalTaskPoolService(animals));
         return animals;
     }
 }
