@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.RecursiveTask;
 import java.util.stream.Collectors;
 
+import static service.DoGenerateStream.DELAY;
 import static service.DoGenerateStream.WITHOUT_DELAY;
 
 public class AnimalTaskPoolService extends RecursiveTask<Map<Cage, Long>> {
@@ -22,7 +23,7 @@ public class AnimalTaskPoolService extends RecursiveTask<Map<Cage, Long>> {
     protected Map<Cage, Long> compute() {
         if (animals.size() <= THRESHOLD) {
             return animals.stream()
-                    .collect(Collectors.groupingBy(animal -> animal.getCageDelay(WITHOUT_DELAY), Collectors.counting()));
+                    .collect(Collectors.groupingBy(animal -> animal.getCageDelay(DELAY), Collectors.counting()));
         } else {
             int mid = animals.size() / 2;
             AnimalTaskPoolService task1 = new AnimalTaskPoolService(animals.subList(0, mid));
