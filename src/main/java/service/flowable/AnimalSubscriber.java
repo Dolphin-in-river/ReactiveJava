@@ -15,11 +15,13 @@ public class AnimalSubscriber implements FlowableSubscriber<Animal> {
     private int count = 0;
     private static final long BATCH_SIZE = 100001;
     private static long start;
+    private static long absoluteStart;
     private List<Animal> animals = new ArrayList<>();
 
     @Override
     public void onSubscribe(Subscription subscription) {
         start = System.currentTimeMillis();
+        absoluteStart = System.currentTimeMillis();
         this.subscription = subscription;
         subscription.request(BATCH_SIZE);
     }
@@ -47,5 +49,6 @@ public class AnimalSubscriber implements FlowableSubscriber<Animal> {
     @Override
     public void onComplete() {
         System.out.println("Completed. Total count: " + count);
+        System.out.println("Общее время обработки: " + (System.currentTimeMillis() - absoluteStart) + "мс");
     }
 }
