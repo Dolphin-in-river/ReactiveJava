@@ -15,6 +15,8 @@ public class Animal {
     private String name;
     private LocalDate birthday;
     private Double weight;
+    private Double height;
+    private Double pulse;
     private AnimalType animalType;
     private Cage cage;
     private List<Person> persons;
@@ -41,6 +43,22 @@ public class Animal {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public Double getPulse() {
+        return pulse;
+    }
+
+    public void setPulse(Double pulse) {
+        this.pulse = pulse;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
     }
 
     public AnimalType getAnimalType() {

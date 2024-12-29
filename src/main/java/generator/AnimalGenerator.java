@@ -19,6 +19,8 @@ public class AnimalGenerator {
         animal.setName(generateName());
         animal.setBirthday(generateBirthday());
         animal.setWeight(generateWeight());
+        animal.setHeight(generateHeight());
+        animal.setPulse(generatePulse());
         animal.setAnimalType(generateAnimalType());
         animal.setCage(generateCage());
         animal.setPersons(generatePersons());
@@ -35,6 +37,13 @@ public class AnimalGenerator {
 
     private Double generateWeight() {
         return random.nextDouble() * 100;
+    }
+    private Double generatePulse() {
+        return 40 + random.nextDouble(81);
+    }
+
+    private Double generateHeight() {
+        return 0.5 + (random.nextDouble() * 2.0);
     }
 
     private AnimalType generateAnimalType() {
